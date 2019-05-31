@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inventory Project</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://threejsfundamentals.org/threejs/resources/threejs/r102/js/controls/OrbitControls.js"></script>
+    <script src="https://threejsfundamentals.org/threejs/resources/threejs/r102/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script src="./dsp/dsp.js"></script>
+    <script src="../catalog/view/theme/default/ar_components/button.js"></script>
+    <script src="../catalog/view/theme/default/ar_components/triangle_prism.js"></script>
+    <script src="../catalog/view/theme/default/ar_components/THREE.MeshLine.js"></script>
+    <script src="../catalog/view/theme/default/ar_components/meshLine.js"></script>
+    <!--Register an aframe component that allows reacting to marker events -->
+    <script>
+    AFRAME.registerComponent("clickevent", {
+        init: function() {
+          document.querySelector('#button2').addEventListener('click',function(){
+              //console.log('click');
+              //$('#popup').css('display','block');
+              document.querySelector('#popup').style.display = 'block';
+              document.querySelector('#scene1').setAttribute('visible','false');
+              //this.setAttribute('visible', 'false')
+          })
+        }
+        
+         
+    })
+</script>
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+
+      .enter-vr {
+        display: none;
+      }
+
+      .a-enter-vr-button {
+        display: none;
+      }
+
+      #popup {
+        display: none;
+        width: 80%;
+        height:60%;
+        position: absolute;
+       
+        background-color:rgb(65,233,76);
+        left:50%;
+        top:50%;
+        transform: translateX(-50%) translateY(-50%);
+        z-index:11;
+      }
+
+      #button2 {
+        position: fixed;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%);
+        width: 60%;
+        z-index: 10;
+
+      }
+    
+    </style>
+  </head>
+  <body style="margin: 0px; overflow:hidden;">
+  <button id='button2'>Scan</button>
+     <div id='popup'>
+        <p>STOCK AVAILABLE!</p>
+      </div>
+    <a-scene id='scene1' clickevent
+      embedded
+        arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; patternRatio: 0.5"
+        >
+        <a-marker
+        type="pattern"
+        preset="custom"
+        id="HIRO"
+        url="HIRO.jpg"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse">
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="rgb(65,233,76)"></a-box>  
+     </a-marker>    
+      <a-text
+        value="STOCK AVAILABLE!"
+        height="0.3"
+        width="0.6"
+        depth="0.2"
+        position="-0.22 1.6 -1"
+        color='#333'
+      ></a-text> 
+
+      <a-plane clickevent id='button1' height="0.3" width="0.5" position="0 1.6 -1.05"></a-plane>
+      </a-plane>
+      <a-box
+        color="rgb(65,233,76)"
+        height="0.2"
+        width="0.2"
+        depth="0.2"
+        position="0 1.6 1.5"
+      ></a-box>
+      <a-box
+        color="rgb(65,233,76)"
+        height="0.2"
+        width="0.2"
+        depth="0.2"
+        position="1.5 1.6 0"
+      ></a-box>
+      <a-box
+        color="rgb(65,233,76)"
+        height="0.2"
+        width="0.2"
+        depth="0.2"
+        position="-1.5 1.6 0"
+      ></a-box>
+
+      <a-entity id="rig" position="0 0 0" rotation="0 0 0">
+        <a-camera id="camera"> </a-camera>
+      </a-entity>
+    </a-scene>
+    
+  </body>
+</html>
